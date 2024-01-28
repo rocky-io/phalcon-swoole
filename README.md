@@ -1,11 +1,17 @@
 # phalcon-swoole
 一款基于phalcon和swoole的高性能php框架
 ## 命令
-### 启动
+##### 启动
 php bin/phalconswoole start
-### 停止
+##### 停止
 php bin/phalconswoole stop
-### 重启
+##### 重启
 php bin/phalconswoole restart
-### 重载
+##### 重载
 php bin/phalconswoole reload
+
+## docker compose 命令
+##### 构建镜像并启动容器
+docker compose up
+##### 重启容器
+docker compose restart web
