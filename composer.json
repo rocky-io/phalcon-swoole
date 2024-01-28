@@ -1,0 +1,53 @@
+{
+    "name": "foodbase/phalcon-swoole-http",
+    "type": "project",
+    "description": "",
+    "keywords": [
+        "phalcon",
+        "swoole"
+    ],
+    "license": "",
+    "authors": [
+        {
+            "name": "rocky",
+            "email": "rockyskate@163.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.1",
+        "ext-openssl": "*",
+        "ext-phalcon": "^5.4.0",
+        "ext-swoole": "^5.0.0",
+        "vlucas/phpdotenv": "^5.5.0",
+        "darkaonline/ripcord": "^0.2.0",
+        "simple-swoole/db": "^1.0.7"
+    },
+    "require-dev": {
+        "phalcon/ide-stubs": "^5.4.0",
+        "swoole/ide-helper": "^4.6.7",
+        "codeception/codeception": "^5.0.13",
+        "phpunit/phpunit": "^10.5.9",
+        "squizlabs/php_codesniffer": "^3.8.1",
+        "vimeo/psalm": "^5.20.0"
+    },
+    "suggest": {
+        "ext-openssl": "Required to use HTTPS.",
+        "ext-json": "Required to use JSON.",
+        "ext-pdo": "Required to use MySQL Client.",
+        "ext-pdo_mysql": "Required to use MySQL Client.",
+        "ext-redis": "Required to use Redis Client."
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        },
+        "files": [
+            "app/Helpers.php"
+        ]
+    },
+    "archive": {
+        "exclude": [
+            ".dockerignore"
+        ]
+    }
+}

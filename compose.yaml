@@ -1,0 +1,16 @@
+name: phalcon-swoole
+services:
+  web:
+    build: .
+    image: phalcon-swoole/web:latest
+    container_name: phalcon-swoole-web
+    ports:
+      - "39001:39001"
+    expose:
+      - 39001
+    volumes:
+      - .:/var/www
+   
+    command: sh -c "composer install --no-dev -o && php ./bin/phalconswoole start"
+    #command: sh -c "composer install -o && php ./bin/phalconswoole start"
+    restart: always

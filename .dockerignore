@@ -1,0 +1,12 @@
+.dockerignore
+.editorconfig
+.gitattributes
+.gitignore
+.git
+.idea
+*.md
+Dockerfile
+compose.yaml
+runtime/cache/*/*.*
+runtime/logs/*.*
+runtime/server/*.*
