@@ -24,4 +24,18 @@ $router->addGet(
     ]
 );
 
+$article = new Group(
+    [
+        'controller' => 'article',
+    ]
+);
+$article->setPrefix('/article');
+$article->addGet(
+    '/view/{id:[0-9]+}',
+    [
+        'action' => 'view'
+    ]
+);
+$router->mount($article);
+
 return $router;

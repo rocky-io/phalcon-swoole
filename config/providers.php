@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use App\Providers\ConfigProvider;
@@ -13,9 +14,9 @@ use App\Providers\RedisProvider;
 
 return [
     ConfigProvider::class,
+    LoggerProvider::class,
     DbProvider::class,
     DispatcherProvider::class,
-    LoggerProvider::class,
     RouterProvider::class,
     SessionBagProvider::class,
     SessionProvider::class,

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Providers;
@@ -89,7 +90,7 @@ class CacheProvider implements ServiceProviderInterface
         $adapterConfig = [
             'defaultSerializer' => $cacheConfig['defaultSerializer'],
             'lifetime'          => $cacheConfig['lifetime'],
-            'prefix'=>          $cacheConfig['prefix'],
+            'prefix' =>          $cacheConfig['prefix'],
         ];
         switch ($this->adapters[$cacheConfig['adapter']]) {
             case Adapter\Memory::class:

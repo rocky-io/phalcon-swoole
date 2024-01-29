@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Providers;
@@ -20,7 +21,6 @@ class RedisProvider implements ServiceProviderInterface
      * @param DiInterface $di
      *
      * @return void
-     * @throws RuntimeException
      */
     public function register(DiInterface $di): void
     {

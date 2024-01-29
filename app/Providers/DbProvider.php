@@ -8,8 +8,10 @@ use Phalcon\Config\Config;
 use Phalcon\Db\Adapter\Pdo;
 use Phalcon\Di\DiInterface;
 use Phalcon\Di\ServiceProviderInterface;
+use Phalcon\Events\Event;
+use Phalcon\Events\Manager;
 use RuntimeException;
-use function App\root_path;
+
 
 class DbProvider implements ServiceProviderInterface
 {
@@ -42,9 +44,26 @@ class DbProvider implements ServiceProviderInterface
         $config = $di->getShared('config')->get('database');
         $class  = $this->getClass($config);
         $config = $this->createConfig($config);
-        var_dump($config);
-        $di->set($this->providerName, function () use ($class, $config) {
-            return new $class($config);
+        $logger = $di->getShared('logger');
+        $manager = new Manager();
+        $manager->attach(
+            'db:beforeQuery',
+            function (Event $event, $connection) use ($logger) {
+                $connection->connect();
+                $logger->info(
+                    sprintf(
+                        '%s - %s',
+                        $connection->getSQLStatement(),
+                        json_encode($connection->getSQLVariables())
+                    )
+                );
+                return true;
+            }
+        );
+        $db = new $class($config);
+        $db->setEventsManager($manager);
+        $di->set($this->providerName, function () use ($db) {
+            return $db;
         });
     }
 
