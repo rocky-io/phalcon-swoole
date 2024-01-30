@@ -6,8 +6,9 @@ namespace App\Controllers;
 
 use Phalcon\Mvc\Controller;
 use Phalcon\Mvc\Dispatcher;
+use Phalcon\Http\Response;
 use Swoole\Coroutine;
-use Swoole\Http\Request;
+use Swoole\Http\Request as SwooleRequest;
 
 /**
  * BaseController
@@ -17,7 +18,7 @@ use Swoole\Http\Request;
 class BaseController extends Controller
 {
     /**
-     * @var Request swooleRequest
+     * @var SwooleRequest swooleRequest
      */
 
     protected $swooleRequest;
@@ -31,7 +32,10 @@ class BaseController extends Controller
      */
     private function beforeExecuteRoute(Dispatcher $dispatcher): bool
     {
+        /* 获取Swoole request */
         $this->swooleRequest = Coroutine::getContext()['request'];
+        /* 重新定义response */
+        $this->response = (new Response())->setStatusCode(200, 'OK');
         return true;
     }
 
@@ -47,21 +51,21 @@ class BaseController extends Controller
         return true;
     }
 
-    protected function success($data)
+    protected function success(array $data, string $message = ''): Response
     {
-        return  $this->response->setStatusCode(200, 'OK')->setContentType('application/json', 'UTF-8')->setJsonContent([
+        return  $this->response->setContentType('application/json', 'UTF-8')->setJsonContent([
             'status' => 'success',
-            'message' => '',
+            'message' => $message,
             'data' => $data
         ]);
     }
 
-    protected function error($message, $status = 'error')
+    protected function error(string $message, string $status = 'error', array $data = []): Response
     {
-        return $this->response->setStatusCode(200, 'OK')->setContentType('application/json', 'UTF-8')->setJsonContent([
+        return $this->response->setContentType('application/json', 'UTF-8')->setJsonContent([
             'status' => $status,
             'message' => $message,
-            'data' => ''
+            'data' => $data
         ]);
     }
 }

@@ -120,6 +120,21 @@ class HttpServer extends Application
                 return true;
             }
         }
+        foreach ($request->server as $key => $value) {
+            $_SERVER[strtoupper($key)] = $value;
+        }
+        $_GET = $request->get;
+        $_POST = $request->post;
+        $_COOKIE = $request->cookie;
+        $_FILES = $request->files;
+        $_REQUEST = array_merge(
+            (array)$request->get,
+            (array)$request->post,
+            (array)$request->cookie
+        );
+        /**
+         * $request is Used in App\Controllers\BaseController Class
+         */
         Coroutine::getContext()['request'] = $request;
         /**
          * @var PhalconResponse $phaResponse

@@ -36,6 +36,29 @@ $article->addGet(
         'action' => 'view'
     ]
 );
+$article->addPost(
+    '/create',
+    [
+        'action' => 'create'
+    ]
+);
+$article->addPost(
+    '/update/{id:[0-9]+}',
+    [
+        'action' => 'update'
+    ]
+);
+$article->addPost(
+    '/delete/{id:[0-9]+}',
+    [
+        'action' => 'delete'
+    ]
+);
+$article->addGet(
+    '/list',
+    [
+        'action' => 'list'
+    ]
+);
 $router->mount($article);
-
 return $router;
